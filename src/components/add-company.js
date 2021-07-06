@@ -8,32 +8,44 @@ import {
   Button,
   CardContent,
   CardActions,
-  Card
+  Card,
+  Avatar
 } from "@material-ui/core";
+
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
 
 const useStyles = makeStyles({
   root: {
+
+  },
+  container:{
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     "& > *": {
-      marginBottom: '20px'
+      marginBottom: '20px',
     },
   },
   title: {
     fontStyle: "bold",
-    fontSize: 20,
+    fontSize: '20',
   },
   TextField: {
-    margin: "10px",
+    margin: '10px',
+    minWidth:'80%'
   },
-  buttons:{
-    display:'flex',
+  buttons: {
+    display: 'flex',
+    flexDirection:'row'
   },
-  city:{
-    display:'flex',
+  city: {
+    display: 'inline-block',
+  },
+  divider:{
+    minWidth:'80%'
   }
+
 });
 
 export default function AddCompany() {
@@ -43,17 +55,20 @@ export default function AddCompany() {
     <Card className={classes.root}>
       <CardContent className={classes.container}>
         <Typography
-          className={classes.title}
+          className={classes.title} variant='h5'
           color="textSecondary"
           gutterBottom
         >
           Add Company
         </Typography>
-        <Divider variant="middle" />
+        <Divider className={classes.divider} />
+        <Avatar>
+          <CameraAltIcon />
+        </Avatar>
         <Typography>Upload an image by clicking here</Typography>
 
         <form className={classes.form} noValidate autoComplete="off">
-          <div>
+          <Box>
             <TextField
               className={classes.TextField}
               label="Company Name"
@@ -69,7 +84,7 @@ export default function AddCompany() {
               variant="outlined"
             />
             <br />
-          </div>
+          </Box>
           <Box className={classes.city}>
             <TextField
               className={classes.TextField}
@@ -84,11 +99,12 @@ export default function AddCompany() {
           </Box>
         </form>
       </CardContent>
+      <Divider className={classes.divider} />
       <CardActions className={classes.buttons}>
-        <Button variant="contained" color="primary">
+        <Button className={classes.button} variant="contained" color="primary">
           Register
         </Button>
-        <Button variant="contained">
+        <Button className={classes.button} variant="contained" color="default">
           Cancle
         </Button>
       </CardActions>
