@@ -1,8 +1,6 @@
-import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-
 
 import CostGraph from "./graphs/cost-graph";
 import ProfitGraphMonthly from "./graphs/profit-graph-monthly";
@@ -14,51 +12,37 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(0),
+    overflow: "hidden",
     textAlign: "center",
     color: theme.palette.text.secondary,
   },
 }));
 
 export default function Dashboard() {
+
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div  className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <Paper
-            className={classes.paper}
-            style={{ overflow: "hidden", padding: "0px" }}
-          >
-            <CostGraph
-              style={{
-                margin: "auto",
-              }}
-            />
+          <Paper className={classes.paper}>
+            <CostGraph />
           </Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper
-            className={classes.paper}
-            style={{ overflow: "hidden", padding: "0px" }}
-          >
+          <Paper className={classes.paper}>
             <ProfitGraphMonthly />
           </Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper
-            className={classes.paper}
-            style={{ overflow: "hidden", padding: "0px" }}
-          >
+          <Paper className={classes.paper}>
             <ProfitGraphAnual />
           </Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper
-            className={classes.paper}
-            style={{ overflow: "hidden", padding: "0px" }}
-          >
+          <Paper className={classes.paper}>
             <CompanyGrowth />
           </Paper>
         </Grid>

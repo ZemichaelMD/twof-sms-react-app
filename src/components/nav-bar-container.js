@@ -11,16 +11,19 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 
-import Dashboard from "./dashboard";
+import AddCompany from "./add-company";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+    display: 'flex',
+    alignItems:'center',
+    justifyContent:'center'
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+
   },
   drawer: {
     width: drawerWidth,
@@ -46,7 +49,7 @@ export default function NavBarContainer() {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h5" noWrap gutterBottom>
             Clipped drawer
           </Typography>
         </Toolbar>
@@ -80,7 +83,7 @@ export default function NavBarContainer() {
       <main className={classes.content}>
         <Toolbar />
 
-        <Dashboard />
+        <AddCompany />
       </main>
     </div>
   );
