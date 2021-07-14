@@ -1,58 +1,49 @@
-import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
-import checkJwtStatus  from "./Auth"
-import Auth from './Auth';
+import React from "react";
+import { Redirect, Route, useHistory, useLocation } from "react-router-dom";
+import { AuthService } from "./Auth";
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
+export default function ProtectedRoute({
+    component: Component,
+    ...rest
+}) {
+    const history = useHistory();
+    // You can check special cases you need from the token. And then act correspondingly
+    // E.g. If user is admin and the "user" part of the app is prevented for admin.
+    // Here the data should be read from your token/cookies.
+    // Prior to this you should have code to check whether the token is valid or invalid.
+    if (AuthService.getCachedJwt()){
+         if (AuthService.getCachedJwt().roleId==1){
+            history.push("/admin")
+         }
+        }
+
     return (
-        <Route{...rest}
+        <Route
+            {...rest}
             render={(props) => {
-                if (Auth.isAuthenticated) {
-                    //Status = If refresh Token is needed
-                    if (checkJwtStatus() === 'okay') {
-                        return <Component {...props} />
-                    }
+                // logic for authenticated user to access /app part goes here.
+                // e.g. check if user is logged-in logic.
+                const isAuthenticated = true;
 
-                    else if (checkJwtStatus() === 'expired') {
-                        return <Redirect to={{
-                            pathname: '/login',
-                            state: {
-                                from: props.location
-                            }
-                        }} />
-                    }
-                    else if ((checkJwtStatus() === 'refresh')) {
-                        Auth.refreshToken();
-                        return <Component {...props} />
-                    }
-                    else {
-                        return <Redirect to={{
-                            pathname: '/login',
-                            state: {
-                                from: props.location
-                            }
-                        }} />
-                    }
-                    //RoleID = if role is Admin
-                    //Redirect to dahsboard with userID
+                return isAuthenticated ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect to={"/login"} />
+                );
+            }}
+        />
+    );
+};
 
-                    //RoleID = clerk
-                    //redirect to clerk dahsboard
 
-                    //else redirect to login
-
-                }
-                else {
-                    return <Redirect to={{
-                        pathname: '/login',
-                        state: {
-                            from: props.location
-                        }
-                    }} />
-                }
-            }
-            } />
-    )
-}
-
-export default ProtectedRoute;
+// export function ProtectedRoute({ component: Component, ...rest }) {
+//     return (
+//         <Route {...rest}
+//             render={
+//                 (props) => {
+//                     return <Component {...props} />;
+//                 }
+//             }
+//         />
+//     );
+// };

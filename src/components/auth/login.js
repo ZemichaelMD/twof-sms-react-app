@@ -9,6 +9,8 @@ import {
 
 import AuthService from "./Auth";
 
+import MainNav from "../../nav";
+
 const useStyles = makeStyles({
     root: {
         margin: 'auto',
@@ -32,7 +34,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function LoginUI() {
+export default function LoginUI(props) {
 
     const classes = useStyles();
 
@@ -40,17 +42,23 @@ export default function LoginUI() {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
 
-    //functions to hundle login form
-    function handleLogin(e) {
+    //functions to handle login form
+    async function handleLogin(e) {
         //send username and password to lgin method
         e.preventDefault();
-        console.log(username + ' , ' + password)
-        AuthService.login (username, password)
+        console.log(username + ' , ' + password);
+        await AuthService.login(username, password).then((res) => {
+            //what happens after login
+            props.history.push("/admin");
+        });
+
+        //if success , check role
     }
 
     //functions to hundle logout form
     function handleLogout(e) {
-        AuthService.logout ()
+        AuthService.logout();
+        props.history.push("/login");
     }
 
     return (
@@ -71,10 +79,13 @@ export default function LoginUI() {
                 <Button type='submit' variant="contained" color="primary">
                     Login
                 </Button>
-                <Button  onClick = {handleLogout} variant="contained" color="primary">
+                <Button onClick={handleLogout} variant="contained" color="primary">
                     Log Out
                 </Button>
-                {console.log(AuthService.checkJwtStatus())}
+
+                <Button onClick={() => { console.log(AuthService.checkJwtStatus())}}variant="contained" color="primary">
+                    Check JWT
+                </Button>
             </form>
         </Card>
     )
