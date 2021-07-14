@@ -1,21 +1,22 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "./components/auth/login";
-import NavBarContainer from "./components/nav-bar-container";
+import AdminContainer from "./components/admin-container";
+import NavBar from "./nav";
+import { withRouter, Route, Switch } from 'react-router-dom'
+import LoginUI from "./components/auth/login";
+import ProtectedRoute from './components/auth/ProtectedRoute'
 
-
-function App() {
+export default function App() {
   return (
-
-    <Router>
-      <div>
-      This is a test
-      </div>
+    <div>
+      <NavBar />
       <Switch>
-        <Route path='/' exact component = {NavBarContainer}/>
-        <Route path='/login' exact component = {Login}/>
+        <Route exact path='/login' component={LoginUI} />
+
+        <ProtectedRoute exact path='/Admin' component={AdminContainer}/>
+
+        <Route path='*' component={() => { return <h1 style={{ margin: '100px', textAlign: 'center' }}>404 <br />No such page</h1> }} />
       </Switch>
-    </Router>
+    </div>
   );
 }
 
-export default App;
+

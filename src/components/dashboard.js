@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 
 import CostGraph from "./graphs/cost-graph";
 import ProfitGraphMonthly from "./graphs/profit-graph-monthly";
-import ProfitGraphAnual from "./graphs/profit-graph-anual";
+import ProfitGraphAnnual from "./graphs/profit-graph-annual";
 import CompanyGrowth from "./graphs/company-growth-graph";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +38,7 @@ export default function Dashboard() {
         </Grid>
         <Grid item xs={6}>
           <Paper className={classes.paper}>
-            <ProfitGraphAnual />
+            <ProfitGraphAnnual />
           </Paper>
         </Grid>
         <Grid item xs={6}>

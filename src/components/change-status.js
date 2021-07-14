@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
 
-    rooot: {
+    root: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     button: {
         margin: '10px',
     },
-     divder: {
+    divider: {
         width: '80%'
     },
     formControl:{
@@ -44,11 +44,11 @@ export default function ChangeStatus() {
     const classes = useStyles()
 
     return (
-        <Card className={classes.rooot}>
+        <Card className={classes.root}>
             <Typography variant="h5" gutterBottom>
                 Change status
             </Typography>
-            <Divider className={classes.divder} />
+            <Divider className={classes.divider} />
             <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">Age</InputLabel>
                 <Select
@@ -62,13 +62,13 @@ export default function ChangeStatus() {
                     <MenuItem value={30}>Thirty</MenuItem>
                 </Select>
             </FormControl>
-            <Divider className={classes.divder}/>
+            <Divider className={classes.divider}/>
             <Box className={classes.buttons}>
                 <Button className={classes.button} variant="contained" color="primary">
                     Update
                 </Button>
                 <Button className={classes.button} variant="contained" color="default">
-                    Cancle
+                    Cancel
                 </Button>
             </Box>
         </Card>

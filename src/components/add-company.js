@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import {
   Box,
   Divider,
@@ -12,7 +12,6 @@ import {
   Avatar
 } from "@material-ui/core";
 
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
 
 const useStyles = makeStyles({
   root: {
@@ -105,7 +104,7 @@ export default function AddCompany() {
           Register
         </Button>
         <Button className={classes.button} variant="contained" color="default">
-          Cancle
+          Cancel
         </Button>
       </CardActions>
     </Card>
