@@ -3,8 +3,6 @@ import { Typography } from "@material-ui/core";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 
-import AddCompany from "./add-company";
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AdminContainer() {
+export default function ClerkContainer() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -40,7 +38,7 @@ export default function AdminContainer() {
       </aside>
       <main className={classes.content}>
         {/* This is where it is routed */}
-        <AddCompany />
+        THIS IS THE CLERK
       </main>
     </div>
   );
