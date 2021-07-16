@@ -20,10 +20,9 @@ export async function login(username, password) {
     email: username,
   };
   try {
-    await axios.post(LOGIN_URL, bodyData).then((response) => {
+    const response = await axios.post(LOGIN_URL, bodyData)
      // console.log(response)
       return response;
-    });
   } catch (error) {
     if (console) {
       console.error(error);

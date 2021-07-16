@@ -2,6 +2,7 @@ import { useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import AuthService from "../auth/Auth";
 import { login } from "../api-services/api";
+import HandleRole from "../auth/handleRole";
 import {
   Button,
   Card,
@@ -45,15 +46,15 @@ export default function LoginUI(props) {
     //send username and password to login method
     e.preventDefault();
     try {
-      await login(username, password).then((response) => {
-        console.log(response);
-        if (response.data.sign_in.token) {
-          AuthService.saveAccessTokenAsCachedJwt(response);
-          console.log("successfully logged in!");
-        }
-        //redirect to somewhere to check role and render
-        //props.history.push("/admin");
-      });
+      let responseData = await login(username, password);
+      console.log(responseData.data);
+      if (responseData.data.sign_in.token) {
+        AuthService.saveAccessTokenAsCachedJwt(responseData);
+        console.log("successfully logged in!");
+        props.history.push("/");
+      }
+      //redirect to somewhere to check role and render
+
     } catch (error) {
       console.log(error);
       return null;

@@ -4,7 +4,7 @@ export class AuthService {
 
   //store Token
   saveAccessTokenAsCachedJwt(response) {
-    if (response.sign_in.token) {
+    if (response.data.sign_in.token) {
       this.destroyCachedJwt()
       const expiresIn = jwt_decode(response.data.sign_in.token).exp;
       const expiresAt = new Date(Date.now() + expiresIn);
