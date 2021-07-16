@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ClerkContainer() {
+export default function CompanyAdminContainer() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -34,7 +34,7 @@ export default function ClerkContainer() {
         {/* This is where it is routed */}
         <h1 style={{ margin: "100px", textAlign: "center" }}>
           This is the <br />
-          Clerk
+          Company Admin
         </h1>
       </main>
     </div>

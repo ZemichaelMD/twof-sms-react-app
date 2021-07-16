@@ -5,6 +5,7 @@ import { Redirect } from "react-router";
 
 import AdminContainer from "../components/admin/admin-container";
 import ClerkContainer from "../components/clerk/clerk-container";
+import CompanyAdminContainer from "../components/company-admin/company-admin-container";
 import AuthService from "./Auth";
 
 export default function HandleRole() {
@@ -30,6 +31,9 @@ export default function HandleRole() {
     return <AdminContainer />;
   } else if (role === "clerk") {
     return <ClerkContainer />;
+  }
+   else if (role === "companyAdmin") {
+    return <CompanyAdminContainer />;
   }
   else {
     return <Container><h1 style={{ margin: "100px", textAlign: "center" }}>
