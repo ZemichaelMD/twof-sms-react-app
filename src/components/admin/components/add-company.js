@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import CameraAltIcon from "@material-ui/icons/CameraAlt";
 import {
   Box,
   Divider,
@@ -12,39 +12,35 @@ import {
   Avatar
 } from "@material-ui/core";
 
-
 const useStyles = makeStyles({
-  root: {
-
-  },
-  container:{
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+  root: {},
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
     "& > *": {
-      marginBottom: '20px',
+      marginBottom: "20px",
     },
   },
   title: {
     fontStyle: "bold",
-    fontSize: '20',
+    fontSize: "20",
   },
   TextField: {
-    margin: '10px',
-    minWidth:'80%'
+    margin: "10px",
+    minWidth: "80%",
   },
   buttons: {
-    display: 'flex',
-    flexDirection:'row'
+    display: "flex",
+    alignSelf:'right'
   },
   city: {
-    display: 'inline-block',
+    display: "inline-block",
   },
-  divider:{
-    minWidth:'80%'
-  }
-
+  divider: {
+    minWidth: "80%",
+  },
 });
 
 export default function AddCompany() {
@@ -54,7 +50,8 @@ export default function AddCompany() {
     <Card className={classes.root}>
       <CardContent className={classes.container}>
         <Typography
-          className={classes.title} variant='h5'
+          className={classes.title}
+          variant="h5"
           color="textSecondary"
           gutterBottom
         >
@@ -100,7 +97,9 @@ export default function AddCompany() {
       </CardContent>
       <Divider className={classes.divider} />
       <CardActions className={classes.buttons}>
-        <Button className={classes.button} variant="contained" color="primary">
+        <Button onclick={()=>{
+          //set the state of the content to something
+        }} className={classes.button} variant="contained" color="primary">
           Register
         </Button>
         <Button className={classes.button} variant="contained" color="default">

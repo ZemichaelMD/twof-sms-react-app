@@ -2,7 +2,6 @@ import { useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import AuthService from "../auth/Auth";
 import { login } from "../api-services/api";
-import HandleRole from "../auth/handleRole";
 import {
   Button,
   Card,
@@ -32,6 +31,9 @@ const useStyles = makeStyles({
   divider: {
     width: "80%",
   },
+  buttons:{
+    display:'flex'
+  }
 });
 
 export default function LoginUI(props) {
@@ -40,6 +42,7 @@ export default function LoginUI(props) {
   //states for username and password
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [JwtStatus, setJwtStatus] = useState("");
 
   //functions to handle login form
   async function handleLogin(e) {
@@ -87,22 +90,20 @@ export default function LoginUI(props) {
           autoComplete="current-password"
           required
         />
+        <box className = {classes.buttons}>
         <Button type="submit" variant="contained" color="primary">
           Login
         </Button>
-        <Button onClick={handleLogout} variant="contained" color="primary">
-          Log Out
-        </Button>
-
+        </box>
         <Button
-          onClick={() => {
-            console.log(AuthService.checkCachedJwtStatus());
-          }}
+          onClick={(e) => {
+          setJwtStatus(AuthService.checkCachedJwtStatus())}}
           variant="contained"
           color="primary"
         >
           Check JWT
         </Button>
+        <Typography>{JwtStatus}</Typography>
       </form>
     </Card>
   );
