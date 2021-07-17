@@ -1,4 +1,3 @@
-import NavBar from "./components/nav";
 import {Route, Switch } from "react-router-dom";
 //My UI
 import LoginUI from "./components/login";
@@ -7,7 +6,6 @@ import HandleRole from "./auth/handleRole";
 export default function App() {
   return (
     <div>
-      <NavBar />
       <Switch>
         <Route exact path="/" component={HandleRole} />
         <Route exact path="/login" component={LoginUI} />
