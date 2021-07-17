@@ -1,7 +1,6 @@
 import { Container } from "@material-ui/core";
-import React from "react";
 import { useState, useEffect } from "react";
-import { Redirect } from "react-router";
+import { useHistory  } from "react-router-dom";
 
 import AdminContainer from "../components/admin/admin-container";
 import ClerkContainer from "../components/clerk/clerk-container";
@@ -9,6 +8,7 @@ import CompanyAdminContainer from "../components/company-admin/company-admin-con
 import AuthService from "./Auth";
 
 export default function HandleRole() {
+  const history = useHistory()
   const [role, setRole] = useState("");
 
   useEffect(() => {
@@ -36,11 +36,10 @@ export default function HandleRole() {
     return <CompanyAdminContainer />;
   }
   else {
-    return <Container><h1 style={{ margin: "100px", textAlign: "center" }}>
-      No Role or <br />
-      You are not logged in!
+    return <Container style={{ display: 'flex', flexDirection: 'column', maxWidth: "400px"}}><h1 style={{ textAlign: "center" }}>
+      No Role or Not logged in!
     </h1>
-      <button>Login</button>
+      <button onClick = {() =>{history.push('/login')}}> Login </button>
     </Container>
   }
 

@@ -1,4 +1,5 @@
 import jwt_decode from "jwt-decode";
+import { Redirect } from "react-router";
 
 export class AuthService {
 
@@ -72,6 +73,11 @@ export class AuthService {
 
   destroyCachedJwt() {
     sessionStorage.removeItem("cachedJwt");
+  }
+
+  handleLogOut(){
+    this.destroyCachedJwt();
+    return <Redirect to='/login'/>
   }
 }
 
