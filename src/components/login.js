@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core";
 import AuthService from "../auth/Auth";
 import { login } from "../api-services/api";
 import {
+  Box,
   Button,
   Card,
   TextField,
@@ -64,12 +65,6 @@ export default function LoginUI(props) {
     }
   }
 
-  //functions to hundle logout form
-  function handleLogout(e) {
-    AuthService.destroyCachedJwt();
-    props.history.push("/login");
-  }
-
   return (
     <Card className={classes.root}>
       <form onSubmit={handleLogin} className={classes.form}>
@@ -90,11 +85,11 @@ export default function LoginUI(props) {
           autoComplete="current-password"
           required
         />
-        <box className = {classes.buttons}>
+        <Box className = {classes.buttons}>
         <Button type="submit" variant="contained" color="primary">
           Login
         </Button>
-        </box>
+        </Box>
         <Button
           onClick={(e) => {
           setJwtStatus(AuthService.checkCachedJwtStatus())}}

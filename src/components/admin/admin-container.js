@@ -1,19 +1,14 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { useState, useEffect } from "react";
-import { Typography, Box, Card, Button, CardActions } from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import AddCompany from "./components/add-company";
+import {  Box, Card, Button, CardActions } from "@material-ui/core";
 import Companies from "./components/companies";
 import Dashboard from "./components/dashboard";
 import MainNav from "../nav";
 import AuthService from "../../auth/Auth";
 
-const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth:'60%',
+    maxWidth:'60%',
     margin:'auto',
     display: "flex",
     flexDirection: "column",
@@ -30,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
   },
 
   aside: {
-    display: "flex",
-    flexDirection: 'column',
-    height: "100%",
-    width: {drawerWidth},
+    display:'fixed',
+    width:'15%',
+    borderRadius:0,
+    backgroundColor:'lightgray'
   },
 
   content: {
-    flexGrow: 1,
+    width:'70rem',
     padding: theme.spacing(3),
   },
   button: {
@@ -49,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection:'column',
    height:'100%'
   }
+
 }));
 
 export default function AdminContainer() {

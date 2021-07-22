@@ -1,8 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { useState, useEffect } from "react";
-import { Typography } from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 
 import MainNav from "../nav";
 import AuthService from "../../auth/Auth";

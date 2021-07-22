@@ -1,27 +1,14 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { useState, useEffect } from "react";
-import { Typography } from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 
 import MainNav from "../nav";
 import AuthService from "../../auth/Auth";
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
-  },
-
-  aside: {
-    height: '100%',
-    margin: 'auto',
-    backgroundColor: 'gray',
-    zIndex: -1,
-    width: drawerWidth,
   },
 
   content: {
