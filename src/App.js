@@ -1,18 +1,12 @@
-import {Route, Switch } from "react-router-dom";
-import {
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query'
+import { Route, Switch, BrowserRouter} from "react-router-dom";
+import { ReactQueryDevtools } from 'react-query/devtools'
 //My UI
 import LoginUI from "./components/login";
 import HandleRole from "./auth/handleRole";
-
-const queryClient = new QueryClient()
-
 export default function App() {
   return (
     <>
-    <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
       <Switch>
         <Route exact path="/" component={HandleRole} />
         <Route exact path="/login" component={LoginUI} />
@@ -28,7 +22,8 @@ export default function App() {
           }}
         />
       </Switch>
-    </QueryClientProvider>
-</>
-  );
+      </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false}/>
+      </>
+  )
 }
