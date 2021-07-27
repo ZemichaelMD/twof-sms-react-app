@@ -58,13 +58,15 @@ export class AuthService {
   }
 
   getRefreshToken() {
-    let refreshToken = JSON.parse(this.getCachedJwt().refreshToken);
-    return refreshToken;
+    return JSON.parse(this.getCachedJwt().refreshToken);
   }
 
   getCachedJwt() {
-    let cachedJwt = JSON.parse(sessionStorage.getItem("cachedJwt"));
-    return cachedJwt;
+    return JSON.parse(sessionStorage.getItem("cachedJwt"));
+  }
+
+  getCachedJwtToken() {
+    return this.getCachedJwt().accessToken;
   }
 
   saveCachedJwt(jwt) {

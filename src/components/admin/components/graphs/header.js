@@ -26,7 +26,7 @@ export default function GraphHeader() {
         display:"inline-block",
         float:"right", padding:"0px", width:"100px"
       }}>
-        <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-helper-label">...</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
@@ -35,9 +35,7 @@ export default function GraphHeader() {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value='value'>Last Seven Days</MenuItem>
         </Select>
       </FormControl>
     </Box>
