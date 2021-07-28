@@ -1,5 +1,6 @@
-import { useQuery} from "react-query";
+import { useQuery } from "react-query";
 import { makeStyles, Button } from "@material-ui/core";
+import clsx from "clsx";
 import { getAllCompanies } from "../../../../api-services/api";
 import AuthService from "../../../../auth/Auth";
 import {
@@ -9,13 +10,30 @@ import {
   GridToolbarExport,
 } from "@material-ui/data-grid";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
+  root: {
+    "& .status": {
+      "&.active": {
+        color: "green",
+        fontWeight: "600",
+        textTransform: "capitalize",
+      },
+      "&.blocked": {
+        color: "Red",
+        fontWeight: "600",
+        textTransform: "capitalize",
+      },
+    },
+  },
   table: {
     height: 400,
     width: "100%",
   },
-  button: {},
-}));
+});
+
+function handleChangeStatus(id) {
+  return console.log("clicked" + id);
+}
 
 function CustomToolbar() {
   return (
@@ -32,73 +50,95 @@ export default function ColumnSelectorGrid() {
     {
       field: "id",
       hide: true,
-      editable: false
+      editable: false,
     },
     {
       field: "name",
       headerName: "Name",
       width: 200,
-      editable: false
+      editable: false,
     },
     {
       field: "balance",
       headerName: "Balance",
       width: 150,
-      editable: false
+      editable: false,
     },
     {
       field: "paymentMethod",
       headerName: "Paymnet Method",
       width: 150,
-      editable: false
+      editable: false,
     },
     {
       field: "status",
       headerName: "Status",
       width: 150,
-      editable: false
+      editable: false,
+      cellClassName: (params) =>
+        clsx("status", {
+          active: params.value === "active",
+          blocked: params.value === "blocked",
+        }),
     },
+
     {
       field: "change",
       headerName: "Change",
       type: "number",
       width: 300,
       editable: false,
-      renderCell: (params) => (
-        <strong>
-         {/* {params.value} */}
-         <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            style={{ marginLeft: 16 }}
-          >
-            Change Status
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            style={{ marginLeft: 16 }}
-          >
-            Open
-          </Button>
-        </strong>
-      ),
-    }
-  ]
+
+      disableClickEventBubbling: true,
+      renderCell: (params) => {
+        const onClick = () => {
+          const api = params.api;
+          const fields = api
+            .getAllColumns()
+            .map((c) => c.field)
+            .filter((c) => c !== "__check__" && !!c);
+          const thisRow = {};
+
+          fields.forEach((f) => {
+            thisRow[f] = params.value;
+          });
+          return alert(JSON.stringify(thisRow, null, 4));
+        };
+
+        return (
+          <>
+            <Button
+              onClick= {onClick}
+              variant="contained"
+              color="primary"
+              size="small"
+              style={{ marginLeft: 16 }}
+            >
+              Change Status
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              style={{ marginLeft: 16 }}
+            >
+              Open
+            </Button>
+          </>
+        );
+      },
+    },
+  ];
 
   let companiesArray = [];
-  //const [companies, setCompanies] = useState([]);
   //query to get list of companies
-  const { data, error, status } = useQuery(
+  const { isFetching, data, error, status } = useQuery(
     "companies",
-    () => getAllCompanies(AuthService.getCachedJwtToken()),
+    async () => await getAllCompanies(AuthService.getCachedJwtToken()),
     { refetchOnWindowFocus: false }
   );
   console.log(status);
 
-  //array of companies
   if (status === "success") {
     const rowData = data.data.data;
     try {
@@ -109,12 +149,13 @@ export default function ColumnSelectorGrid() {
           balance: rowItem.balance,
           paymentMethod: rowItem.payment_type,
           status: rowItem.status,
-          change: "",
+          change: rowItem.id,
         });
       });
       return (
         <div className={classes.table}>
           <DataGrid
+            className={classes.root}
             rows={companiesArray}
             columns={Columns}
             components={{
@@ -126,7 +167,10 @@ export default function ColumnSelectorGrid() {
     } catch (error) {
       return console.log(error);
     }
-  } else {console.log(error)
-    return <h1>{error.message}! You may need to refresh token by logging back in!</h1>;
+  } else if (isFetching) {
+    return <h1>Loading... Please wait!</h1>;
+  } else {
+    console.log(error);
+    return <h1>{error.message}</h1>;
   }
 }
