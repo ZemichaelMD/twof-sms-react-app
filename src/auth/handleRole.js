@@ -6,6 +6,7 @@ import AdminContainer from "../components/admin/admin-container";
 import ClerkContainer from "../components/clerk/clerk-container";
 import CompanyAdminContainer from "../components/company-admin/company-admin-container";
 import AuthService from "./Auth";
+import { refreshToken } from "../api-services/api";
 
 
 
@@ -30,7 +31,7 @@ export default function HandleRole() {
       if (AuthService.checkCachedJwtStatus() === "OKAY") {
         SetRole();
       } else if (AuthService.checkCachedJwtStatus() === "REFRESH") {
-        AuthService.refreshToken(AuthService.getCachedJwt().accessToken);
+        refreshToken(AuthService.getCachedJwt().accessToken);
         SetRole();
       } else if (AuthService.checkCachedJwtStatus() === "EXPIRED") {
         return (

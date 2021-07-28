@@ -1,3 +1,4 @@
+import { refreshToken } from "../api-services/api";
 import jwt_decode from "jwt-decode";
 import { Redirect } from "react-router";
 
@@ -7,12 +8,12 @@ export class AuthService {
   saveAccessTokenAsCachedJwt(response) {
     if (response.data.sign_in.token) {
       this.destroyCachedJwt()
-      const expiresIn = jwt_decode(response.data.sign_in.token).exp;
-      const expiresAt = new Date(Date.now() + expiresIn);
+      const expiresAt = new Date(jwt_decode(response.data.sign_in.token).exp *1000);
+      //const expiresAt = new Date(Date.now() + expiresIn);
       const refreshAt = new Date(
         // Upon user's activity, refresh 5 minutes before token actually expires.
         // User inactivity till the access token expires will force re-authentication
-        Date.now() + expiresIn - 5 * 60
+        Date.now() + expiresAt - 5 * 60
       );
 
       const jwt = {
@@ -23,7 +24,6 @@ export class AuthService {
         userId: response.data.user.id,
         companyId: response.data.user.company_id,
         refreshToken: response.data.sign_in.refresh_token,
-        expiresIn: expiresIn,
         expiresAt,
         refreshAt,
       };
@@ -32,6 +32,21 @@ export class AuthService {
     } else {
       return response;
     }
+  }
+
+  refreshToken(){
+    let jwt = AuthService.getCachedJwt();
+    let refreshTokenToken = jwt.refreshToken;
+    AuthService.destroyCachedJwt();
+    try{
+      jwt.accessToken = refreshToken(refreshTokenToken);
+      AuthService.saveCachedJwt(jwt)
+      return jwt
+     } catch (error){
+      console.log(error);
+      return console.log ('error')
+    }
+
   }
 
   //check the status of the token
